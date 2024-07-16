@@ -68,8 +68,10 @@ func _physics_process(delta):
 			zfloor = block.height+block.z;
 			z_index = 1
 		#Send shadow to the ground
+		else:
+			zfloor = 0;
 	else:
-		zfloor = 0;
+		zfloor = 0
 	
 	#Hit the bottom of a block
 	if instance_place(position.x, position.y, "Blocks"):
