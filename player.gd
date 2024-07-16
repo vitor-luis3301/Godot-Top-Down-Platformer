@@ -55,10 +55,11 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	if $RayCast2D.is_colliding():
-		if z <= $RayCast2D.get_collider().height  or height >= $RayCast2D.get_collider().z:
-			add_collision_exception_with($RayCast2D.get_collider())
+		var block = $RayCast2D.get_collider()
+		if z <= block.height+block.z or height+z >= block.z:
+			add_collision_exception_with(block)
 		else:
-			remove_collision_exception_with($RayCast2D.get_collider())
+			remove_collision_exception_with(block)
 	
 	if instance_place(position.x, position.y, "Blocks"):
 		var block = instance_place(position.x, position.y, "Blocks")
