@@ -13,4 +13,5 @@ A simple demo of a Top Down Platformer game using the Godot game engine
 
 ## License
 Whatever, take this repo and do whatever you wan't with it
-don't even need to credit me, it would be cool if you did but it's not necessary
+
+Don't even need to credit me, it would be cool if you did but it's not necessary
