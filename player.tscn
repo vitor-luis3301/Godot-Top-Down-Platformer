@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://u6csv0racqmt"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_7h68a"]
+[ext_resource type="Texture2D" uid="uid://bf1w2oc86qnji" path="res://bixin.png" id="2_a2eqh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8cfqg"]
+size = Vector2(6, 2)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_7h68a")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_a2eqh")
+offset = Vector2(0, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8cfqg")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0

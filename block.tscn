@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://xd3glgotcs1i"]
+
+[ext_resource type="Script" path="res://block.gd" id="1_iheva"]
+[ext_resource type="Texture2D" uid="uid://dptbtphq6xwh4" path="res://terra.png" id="2_g5tb3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21ex1"]
+size = Vector2(64, 32)
+
+[node name="StaticBody2D" type="StaticBody2D"]
+position = Vector2(116, 55)
+script = ExtResource("1_iheva")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -15)
+texture = ExtResource("2_g5tb3")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = ExtResource("2_g5tb3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_21ex1")

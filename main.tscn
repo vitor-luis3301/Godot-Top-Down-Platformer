@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://cyhc1kiao3mjr"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_2dq2h"]
+[ext_resource type="Texture2D" uid="uid://dptbtphq6xwh4" path="res://terra.png" id="4_0axir"]
+[ext_resource type="Script" path="res://block.gd" id="4_ro3km"]
+[ext_resource type="PackedScene" uid="uid://u6csv0racqmt" path="res://player.tscn" id="5_w2g7d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5lv1q"]
+size = Vector2(64, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mon2y"]
+size = Vector2(64, 48)
+
+[node name="Node2D" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_2dq2h")
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="." groups=["Blocks"]]
+position = Vector2(268, 51)
+script = ExtResource("4_ro3km")
+height = -32
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D6"]
+position = Vector2(0, -12)
+texture = ExtResource("4_0axir")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_5lv1q")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="." groups=["Blocks"]]
+position = Vector2(191, 83)
+script = ExtResource("4_ro3km")
+z = -16
+height = -16
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D5"]
+position = Vector2(0, -16)
+texture = ExtResource("4_0axir")
+vframes = 2
+
+[node name="Sprite2D5" type="Sprite2D" parent="StaticBody2D5"]
+position = Vector2(0, -56)
+texture = ExtResource("4_0axir")
+vframes = 2
+
+[node name="Sprite2D4" type="Sprite2D" parent="StaticBody2D5"]
+position = Vector2(0, -40)
+texture = ExtResource("4_0axir")
+vframes = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D5"]
+position = Vector2(0, -24)
+texture = ExtResource("4_0axir")
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_mon2y")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." groups=["Blocks"]]
+position = Vector2(116, 83)
+script = ExtResource("4_ro3km")
+height = -16
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
+texture = ExtResource("4_0axir")
+vframes = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D3"]
+position = Vector2(0, -8)
+texture = ExtResource("4_0axir")
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_5lv1q")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("5_w2g7d")]
+position = Vector2(341, 150)
