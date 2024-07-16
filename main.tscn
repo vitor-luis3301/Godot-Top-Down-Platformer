@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cyhc1kiao3mjr"]
+[gd_scene load_steps=8 format=3 uid="uid://cyhc1kiao3mjr"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_2dq2h"]
 [ext_resource type="Texture2D" uid="uid://dptbtphq6xwh4" path="res://terra.png" id="4_0axir"]
 [ext_resource type="Script" path="res://block.gd" id="4_ro3km"]
+[ext_resource type="PackedScene" uid="uid://xd3glgotcs1i" path="res://block.tscn" id="5_lkt3j"]
 [ext_resource type="PackedScene" uid="uid://u6csv0racqmt" path="res://player.tscn" id="5_w2g7d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lv1q"]
@@ -21,8 +22,8 @@ script = ExtResource("4_ro3km")
 height = -32
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D6"]
-position = Vector2(0, -12)
 texture = ExtResource("4_0axir")
+offset = Vector2(0, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
 position = Vector2(0, 4)
@@ -32,42 +33,39 @@ shape = SubResource("RectangleShape2D_5lv1q")
 position = Vector2(191, 83)
 script = ExtResource("4_ro3km")
 z = -16
-height = -16
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D5"]
-position = Vector2(0, -16)
-texture = ExtResource("4_0axir")
-vframes = 2
-
-[node name="Sprite2D5" type="Sprite2D" parent="StaticBody2D5"]
-position = Vector2(0, -56)
-texture = ExtResource("4_0axir")
-vframes = 2
-
-[node name="Sprite2D4" type="Sprite2D" parent="StaticBody2D5"]
-position = Vector2(0, -40)
-texture = ExtResource("4_0axir")
-vframes = 2
-
-[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D5"]
-position = Vector2(0, -24)
-texture = ExtResource("4_0axir")
-vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_mon2y")
 
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D5"]
+texture = ExtResource("4_0axir")
+vframes = 2
+
+[node name="Sprite2D5" type="Sprite2D" parent="StaticBody2D5/Sprite2D"]
+position = Vector2(0, -40)
+texture = ExtResource("4_0axir")
+vframes = 2
+
+[node name="Sprite2D4" type="Sprite2D" parent="StaticBody2D5/Sprite2D"]
+position = Vector2(0, -24)
+texture = ExtResource("4_0axir")
+vframes = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D5/Sprite2D"]
+position = Vector2(0, -8)
+texture = ExtResource("4_0axir")
+vframes = 2
+
 [node name="StaticBody2D3" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(116, 83)
 script = ExtResource("4_ro3km")
-height = -16
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
 texture = ExtResource("4_0axir")
 vframes = 2
 
-[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D3"]
+[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D3/Sprite2D"]
 position = Vector2(0, -8)
 texture = ExtResource("4_0axir")
 vframes = 2
@@ -78,3 +76,45 @@ shape = SubResource("RectangleShape2D_5lv1q")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_w2g7d")]
 position = Vector2(341, 150)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(417, 140)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(433, 140)
+z = -16
+
+[node name="StaticBody2D4" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(449, 140)
+z = -32
+
+[node name="StaticBody2D7" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(465, 140)
+z = -48
+
+[node name="StaticBody2D8" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(481, 140)
+z = -64
+
+[node name="StaticBody2D9" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(497, 140)
+z = -80
+
+[node name="StaticBody2D10" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(513, 140)
+z = -96
+
+[node name="StaticBody2D11" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(529, 140)
+z = -112
+
+[node name="StaticBody2D12" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(545, 140)
+z = -128
+
+[node name="StaticBody2D13" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(561, 140)
+z = -64
+
+[node name="StaticBody2D14" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(577, 140)
