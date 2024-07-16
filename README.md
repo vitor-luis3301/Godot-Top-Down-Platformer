@@ -9,7 +9,7 @@ A simple demo of a Top Down Platformer game using the Godot game engine
 
 ## How to run
 1. Copy the repository with `git clone https://github.com/vitor-luis3301/Godot-Top-Down-Platformer.git`
-2. Open .godot file in Godot
+2. Open the *project.godot* file in Godot
 
 ## License
 Whatever, take this repo and do whatever you wan't with it
