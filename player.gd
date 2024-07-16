@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -4
-var GRAVITY = 0
+var GRAVITY = 9
 
 # Vars to emulate z-axis
 var z = 0  #our z position
@@ -42,8 +42,14 @@ func _physics_process(delta):
 		zspeed = JUMP_VELOCITY
 	
 	if z < zfloor:
-		zspeed += GRAVITY
+		if jump == true:
+			zspeed += GRAVITY
+		else:
+			zspeed = GRAVITY
 		GRAVITY += .2
+	
+	if GRAVITY > 9:
+		GRAVITY = 9
 	
 	if z + zspeed >= zfloor:
 		z = zfloor
@@ -77,15 +83,14 @@ func _physics_process(delta):
 	if instance_place(position.x, position.y, "Blocks"):
 		var block = instance_place(position.x, position.y, "Blocks")
 		#This checks are for making sure we're below the block
-		if block and block.z < z + zspeed and zfloor >= block.z:
+		if block and block.z < height+zspeed and zfloor >= block.z:
 			if zspeed <= 0 and z > block.z: #z > block.z ensures this change of zSpeed doesn't occur when we're above a block
 				zspeed += GRAVITY
-				GRAVITY += .2
+				GRAVITY += .3
 	
 	
 	z += zspeed
 	$Sprite2D.position.y = z
-	$CanvasLayer/Label.text = "z: " + str(z) + "\nZspeed: " + str(zspeed)
+	$CanvasLayer/Label.text = "z: " + str(z) + "\nZspeed: " + str(zspeed) + "\nGravity: " + str(GRAVITY)
 	
-	if jump == false:
-		$Camera2D.position.y = lerp($Camera2D.position.y, zfloor, $Camera2D.position_smoothing_speed * delta)
+	$Camera2D.position.y = lerp($Camera2D.position.y, zfloor, $Camera2D.position_smoothing_speed * delta)
