@@ -1,0 +1,14 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1721076058
+bixin.png::CompressedTexture2D::2792423453723062014::1720724584::1720725032::1::::<><>::
+block.gd::GDScript::-1::1721069587::0::1::::<>StaticBody2D<>::
+block.tscn::PackedScene::1622247915185079236::1720729360::0::1::::<><>::res://block.gd<>uid://dptbtphq6xwh4::::res://terra.png
+block_16.png::CompressedTexture2D::5789067921724399419::1721074851::1721074871::1::::<><>::
+icon.svg::CompressedTexture2D::3413929498112892282::1720722454::1720722456::1::::<><>::
+isometric-grid-400x300.png::CompressedTexture2D::5372098632957586296::1720729676::1720730396::1::::<><>::
+iso_block.png::CompressedTexture2D::5541369292164469622::1720730338::1720730384::1::::<><>::
+main.gd::GDScript::-1::1720724178::0::1::::<>Node2D<>::
+main.tscn::PackedScene::6471992661216218163::1721076042::0::1::::<><>::res://main.gd<>uid://dptbtphq6xwh4::::res://terra.png<>res://block.gd<>uid://u6csv0racqmt::::res://player.tscn
+player.gd::GDScript::-1::1721076024::0::1::::<>CharacterBody2D<>::
+player.tscn::PackedScene::1467927303795284955::1721075847::0::1::::<><>::res://player.gd<>uid://bf1w2oc86qnji::::res://bixin.png
+terra.png::CompressedTexture2D::8251413329487090123::1720725012::1720725032::1::::<><>::
