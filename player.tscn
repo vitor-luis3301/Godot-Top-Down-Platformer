@@ -21,6 +21,10 @@ metadata/_edit_use_anchors_ = true
 texture = ExtResource("2_a2eqh")
 offset = Vector2(0, -7)
 
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 0.360784)
+polygon = PackedVector2Array(-4, -2, 4, -2, 4, 2, -4, 2)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8cfqg")
 
@@ -32,3 +36,13 @@ zoom = Vector2(3, 3)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+
+[node name="JumpBuffer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+one_shot = true
