@@ -1,12 +1,15 @@
 extends CharacterBody2D
 
+@onready var coyoteTimer = $CoyoteTimer
+@onready var jumpBuffer = $JumpBuffer
+
 #General variables
 var SPEED = 300.0
 var MAX_JUMP_VELOCITY : float 
 var MIN_JUMP_VELOCITY : float
 var GRAVITY = 0.2
 
-var MAX_JUMP_HEIGHT = 2 #The highest point of our jump
+var MAX_JUMP_HEIGHT = 2.25 #The highest point of our jump
 var MIN_JUMP_HEIGHT = .25 #The lowest point that our jump can be
 var JUMP_DURATION = 1 #How long is the jump going to be
 
@@ -37,9 +40,13 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		#if space is pressed, apply velocity upwards
-		zspeed = MAX_JUMP_VELOCITY
-		jump = true
+		if coyoteTimer.is_stopped() == false or z >= zfloor:
+			#if space is pressed, apply velocity upwards
+			coyoteTimer.stop()
+			zspeed = MAX_JUMP_VELOCITY
+			jump = true
+		else:
+			jumpBuffer.start()
 	
 	if event.is_action_released("ui_accept") and zspeed <= MIN_JUMP_VELOCITY:
 		#if space is released before jump is completed, interupt jumping
@@ -53,6 +60,11 @@ func _physics_process(delta):
 	#handle the direction of the raycast
 	if direction != Vector2.ZERO:
 		$RayCast2D.target_position = direction * 24
+		
+	#Do I really need to explain what this does?
+	move_and_slide()
+	#Yeah? I-... I do?
+	#Well, just know that this functions is the one that actually moves the player, ok? Ok.
 	
 	#If we're not on the floor, apply gravity
 	if z < zfloor:
@@ -65,10 +77,17 @@ func _physics_process(delta):
 		jump = false
 		z_index = 0
 	
-	#Do I really need to explain what this does?
-	move_and_slide()
-	#Yeah? I-... I do?
-	#Well, just know that this functions is the one that actually moves the player, ok? Ok.
+	#Coyote time and jump buffering
+	if !z + zspeed >= zfloor and !jump:
+		coyoteTimer.start()
+	
+	if zspeed > 1.5:
+		coyoteTimer.stop()
+	
+	if z >= zfloor and !jumpBuffer.is_stopped():
+		jumpBuffer.stop()
+		zspeed = MAX_JUMP_VELOCITY
+		jump = true
 	
 	#Check if we are above or below the block
 	if $RayCast2D.is_colliding():
@@ -110,5 +129,3 @@ func _physics_process(delta):
 	
 	#Make the camera focus on the player's sprite
 	$Camera2D.position.y = lerp($Camera2D.position.y, zfloor, $Camera2D.position_smoothing_speed * delta)
-	if z <= -48 and (zfloor == 0 or zfloor >= z):
-		$Camera2D.position.y = lerp($Camera2D.position.y, z, $Camera2D.position_smoothing_speed * delta)
