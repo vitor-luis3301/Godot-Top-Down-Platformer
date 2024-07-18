@@ -135,7 +135,7 @@ z = -64
 [node name="StaticBody2D14" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(577, 140)
 
-[node name="StaticBody2D15" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+[node name="StaticBody2D15" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(111, 224)
 script = ExtResource("4_ro3km")
 height = -8.0
@@ -149,7 +149,7 @@ vframes = 2
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
-[node name="StaticBody2D16" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+[node name="StaticBody2D16" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(111, 240)
 script = ExtResource("4_ro3km")
 z = -8
@@ -164,7 +164,7 @@ vframes = 2
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
-[node name="StaticBody2D17" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+[node name="StaticBody2D17" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(111, 256)
 script = ExtResource("4_ro3km")
 z = -16
@@ -179,7 +179,7 @@ vframes = 2
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
-[node name="StaticBody2D18" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+[node name="StaticBody2D18" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(111, 272)
 script = ExtResource("4_ro3km")
 z = -24
@@ -194,7 +194,7 @@ vframes = 2
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
-[node name="StaticBody2D19" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+[node name="StaticBody2D19" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(111, 288)
 script = ExtResource("4_ro3km")
 z = -32
@@ -209,7 +209,7 @@ vframes = 2
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
-[node name="StaticBody2D20" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+[node name="StaticBody2D20" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(111, 304)
 script = ExtResource("4_ro3km")
 z = -40
@@ -224,7 +224,7 @@ vframes = 2
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
-[node name="StaticBody2D21" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+[node name="StaticBody2D21" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(111, 320)
 script = ExtResource("4_ro3km")
 z = -48
@@ -239,7 +239,7 @@ vframes = 2
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
-[node name="StaticBody2D22" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+[node name="StaticBody2D22" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(-20, 224)
 script = ExtResource("4_ro3km")
 height = -8.0
@@ -253,7 +253,7 @@ vframes = 2
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
-[node name="StaticBody2D23" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+[node name="StaticBody2D23" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(-20, 240)
 script = ExtResource("4_ro3km")
 height = -8.0
@@ -267,7 +267,7 @@ vframes = 2
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
-[node name="StaticBody2D24" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+[node name="StaticBody2D24" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(332, 63)
 script = ExtResource("4_ro3km")
 z = -32
