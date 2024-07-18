@@ -81,6 +81,9 @@ func _physics_process(delta):
 	if !z + zspeed >= zfloor and !jump:
 		coyoteTimer.start()
 	
+	if zspeed > 2.5:
+		coyoteTimer.stop()
+	
 	if z >= zfloor and !jumpBuffer.is_stopped():
 		jumpBuffer.stop()
 		zspeed = MAX_JUMP_VELOCITY
