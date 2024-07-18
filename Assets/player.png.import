@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cisjxdvpfevto"
-path="res://.godot/imported/isometric-grid-400x300.png-0d98570d4e81eb740d80e9a9497b8363.ctex"
+uid="uid://ys1q3pf3llp2"
+path="res://.godot/imported/player.png-5fe826d179e8297c657fd07c30124f2f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://isometric-grid-400x300.png"
-dest_files=["res://.godot/imported/isometric-grid-400x300.png-0d98570d4e81eb740d80e9a9497b8363.ctex"]
+source_file="res://Assets/player.png"
+dest_files=["res://.godot/imported/player.png-5fe826d179e8297c657fd07c30124f2f.ctex"]
 
 [params]
 

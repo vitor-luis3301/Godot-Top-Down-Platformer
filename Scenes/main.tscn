@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://cyhc1kiao3mjr"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_2dq2h"]
-[ext_resource type="Texture2D" uid="uid://dptbtphq6xwh4" path="res://terra.png" id="4_0axir"]
-[ext_resource type="Script" path="res://block.gd" id="4_ro3km"]
-[ext_resource type="PackedScene" uid="uid://xd3glgotcs1i" path="res://block.tscn" id="5_lkt3j"]
-[ext_resource type="PackedScene" uid="uid://u6csv0racqmt" path="res://player.tscn" id="5_w2g7d"]
+[ext_resource type="Script" path="res://Scenes/main.gd" id="1_2dq2h"]
+[ext_resource type="Texture2D" uid="uid://dptbtphq6xwh4" path="res://Assets/terra.png" id="4_0axir"]
+[ext_resource type="Script" path="res://Objects/block/block.gd" id="4_ro3km"]
+[ext_resource type="PackedScene" uid="uid://xd3glgotcs1i" path="res://Objects/block/block.tscn" id="5_lkt3j"]
+[ext_resource type="PackedScene" uid="uid://u6csv0racqmt" path="res://Objects/player/player.tscn" id="5_w2g7d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lv1q"]
 size = Vector2(64, 16)
@@ -34,10 +34,6 @@ position = Vector2(191, 83)
 script = ExtResource("4_ro3km")
 z = -16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
-position = Vector2(0, -12)
-shape = SubResource("RectangleShape2D_mon2y")
-
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D5"]
 texture = ExtResource("4_0axir")
 vframes = 2
@@ -56,6 +52,10 @@ vframes = 2
 position = Vector2(0, -8)
 texture = ExtResource("4_0axir")
 vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_mon2y")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(116, 83)

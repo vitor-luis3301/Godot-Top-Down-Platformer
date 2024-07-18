@@ -15,7 +15,7 @@ var JUMP_DURATION = 1 #How long is the jump going to be
 
 # Vars to emulate z-axis
 var z = 0  #our z position
-var height = -8  #The height of the player
+var height = -24  #The height of the player
 var zfloor : float = 0  #The floor the player will land on
 var jump = false #If we are jumping or not
 
@@ -127,6 +127,11 @@ func _physics_process(delta):
 	$CanvasLayer/Label.text = "z: " + str(z) + "\nZspeed: " + str(zspeed) + "\nGravity: " + str(GRAVITY)
 	$Polygon2D.position.y = zfloor
 	
+	if direction.x != 0:
+		if direction.x < 0:
+			$Sprite2D.flip_h = true
+		else:
+			$Sprite2D.flip_h = false
+	
 	#Make the camera focus on the player's sprite
-	if !jump:
-		$Camera2D.position.y = lerp($Camera2D.position.y, zfloor, $Camera2D.position_smoothing_speed * delta)
+	$Camera2D.position.y = lerp($Camera2D.position.y, zfloor, $Camera2D.position_smoothing_speed * delta)
