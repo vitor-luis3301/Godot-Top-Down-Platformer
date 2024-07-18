@@ -39,7 +39,6 @@ position_smoothing_speed = 8.0
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 0.1
 one_shot = true
 
 [node name="JumpBuffer" type="Timer" parent="."]

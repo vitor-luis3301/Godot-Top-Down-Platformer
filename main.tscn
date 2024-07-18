@@ -76,7 +76,6 @@ shape = SubResource("RectangleShape2D_5lv1q")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_w2g7d")]
 position = Vector2(237, 144)
-motion_mode = 1
 
 [node name="StaticBody2D" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(417, 140)
