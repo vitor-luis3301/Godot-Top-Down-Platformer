@@ -104,12 +104,12 @@ func _physics_process(delta):
 			add_collision_exception_with(block)
 		
 		if fmod(block.height / -16, 1) != 0 and (block.height - z) / 16 > -1:
-			print((block.height - z) / 16 > -1)
 			add_collision_exception_with(block)
 	
 	#Check if we're above the block
 	if instance_place(position.x, position.y, "Blocks"):
 		var block = instance_place(position.x, position.y, "Blocks")
+		print(block)
 		#If we're higher than the block, send the shadow to the top of that block
 		if block.z >= z:
 			zfloor = block.height+block.z;
