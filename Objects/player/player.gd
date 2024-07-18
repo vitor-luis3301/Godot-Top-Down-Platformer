@@ -21,17 +21,14 @@ var jump = false #If we are jumping or not
 
 var zspeed = 0 #Our velocity in the z axis
 
-@onready var room_node = $'..'
-@onready var colshape_node = shape_owner_get_owner(0) # Returns the first child node which contains a collision shape
-
-func instance_place(x, y, group):
-	var space = get_world_2d().direct_space_state
-	var query = PhysicsShapeQueryParameters2D.new()
-	query.shape_rid = colshape_node.shape
-	query.transform = room_node.global_transform.translated(Vector2(x, y)) * colshape_node.transform
-	for i in space.intersect_shape(query):
-		if i["collider"].is_in_group(group):
-			return i["collider"]
+func instance_place(group):
+	var bodies : Array
+	for i in $Area2D.get_overlapping_bodies():
+		if i.is_in_group(group):
+			bodies.append(i)
+	
+	if bodies.size() > 0:
+		return bodies[0]
 	return null
 
 func _ready():
@@ -60,11 +57,6 @@ func _physics_process(delta):
 	#handle the direction of the raycast
 	if direction != Vector2.ZERO:
 		$RayCast2D.target_position = direction * 24
-		
-	#Do I really need to explain what this does?
-	move_and_slide()
-	#Yeah? I-... I do?
-	#Well, just know that this functions is the one that actually moves the player, ok? Ok.
 	
 	#If we're not on the floor, apply gravity
 	if z < zfloor:
@@ -100,6 +92,7 @@ func _physics_process(delta):
 		else:
 			remove_collision_exception_with(block)
 		
+		#Same thing, but for Half-blocks
 		if block.is_in_group("Half-Blocks"):
 			add_collision_exception_with(block)
 		
@@ -107,9 +100,8 @@ func _physics_process(delta):
 			add_collision_exception_with(block)
 	
 	#Check if we're above the block
-	if instance_place(position.x, position.y, "Blocks"):
-		var block = instance_place(position.x, position.y, "Blocks")
-		print(block)
+	if instance_place("Blocks"):
+		var block = instance_place("Blocks")
 		#If we're higher than the block, send the shadow to the top of that block
 		if block.z >= z:
 			zfloor = block.height+block.z;
@@ -120,13 +112,27 @@ func _physics_process(delta):
 	else:
 		zfloor = 0
 	
+	#Same thing but for half-blocks
+	for i in $Area2D.get_overlapping_bodies():
+		if i.is_in_group("Hlaf-Blocks") or (fmod(i.height / -16, 1) != 0 and (i.height - z) / 16 > -1):
+			if i.z >= z:
+				zfloor = i.height+i.z;
+				z_index = 1
+			else:
+				zfloor = 0;
+			
 	#Hit the bottom of a block
-	if instance_place(position.x, position.y, "Blocks"):
-		var block = instance_place(position.x, position.y, "Blocks")
+	if instance_place("Blocks"):
+		var block = instance_place("Blocks")
 		#This checks are for making sure we're below the block
 		if block and block.z > z+height+zspeed and zfloor >= block.z:
 			if zspeed <= 0 and z > block.z: #z > block.z ensures this change of zSpeed doesn't occur when we're above a block
 				zspeed = GRAVITY
+	
+	#Do I really need to explain what this does?
+	move_and_slide()
+	#Yeah? I-... I do?
+	#Well, just know that this functions is the one that actually moves the player, ok? Ok.
 	
 	#Change values accordingly
 	z += zspeed
