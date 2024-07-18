@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cyhc1kiao3mjr"]
+[gd_scene load_steps=9 format=3 uid="uid://cyhc1kiao3mjr"]
 
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_2dq2h"]
 [ext_resource type="Texture2D" uid="uid://dptbtphq6xwh4" path="res://Assets/terra.png" id="4_0axir"]
@@ -11,6 +11,9 @@ size = Vector2(64, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mon2y"]
 size = Vector2(64, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r306l"]
+size = Vector2(64, 16)
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
@@ -118,3 +121,150 @@ z = -64
 
 [node name="StaticBody2D14" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(577, 140)
+
+[node name="StaticBody2D15" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+position = Vector2(111, 224)
+script = ExtResource("4_ro3km")
+height = -8
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D15"]
+texture = ExtResource("4_0axir")
+offset = Vector2(0, -12)
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D15"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r306l")
+
+[node name="StaticBody2D16" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+position = Vector2(111, 240)
+script = ExtResource("4_ro3km")
+z = -8
+height = -8
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D16"]
+texture = ExtResource("4_0axir")
+offset = Vector2(0, -12)
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D16"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r306l")
+
+[node name="StaticBody2D17" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+position = Vector2(111, 256)
+script = ExtResource("4_ro3km")
+z = -16
+height = -8
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D17"]
+texture = ExtResource("4_0axir")
+offset = Vector2(0, -12)
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D17"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r306l")
+
+[node name="StaticBody2D18" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+position = Vector2(111, 272)
+script = ExtResource("4_ro3km")
+z = -24
+height = -8
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D18"]
+texture = ExtResource("4_0axir")
+offset = Vector2(0, -12)
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D18"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r306l")
+
+[node name="StaticBody2D19" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+position = Vector2(111, 288)
+script = ExtResource("4_ro3km")
+z = -32
+height = -8
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D19"]
+texture = ExtResource("4_0axir")
+offset = Vector2(0, -12)
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D19"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r306l")
+
+[node name="StaticBody2D20" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+position = Vector2(111, 304)
+script = ExtResource("4_ro3km")
+z = -40
+height = -8
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D20"]
+texture = ExtResource("4_0axir")
+offset = Vector2(0, -12)
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D20"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r306l")
+
+[node name="StaticBody2D21" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+position = Vector2(111, 320)
+script = ExtResource("4_ro3km")
+z = -48
+height = -8
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D21"]
+texture = ExtResource("4_0axir")
+offset = Vector2(0, -12)
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D21"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r306l")
+
+[node name="StaticBody2D22" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+position = Vector2(-20, 224)
+script = ExtResource("4_ro3km")
+height = -8
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D22"]
+texture = ExtResource("4_0axir")
+offset = Vector2(0, -12)
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D22"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r306l")
+
+[node name="StaticBody2D23" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+position = Vector2(-20, 240)
+script = ExtResource("4_ro3km")
+height = -8
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D23"]
+texture = ExtResource("4_0axir")
+offset = Vector2(0, -12)
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D23"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r306l")
+
+[node name="StaticBody2D24" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
+position = Vector2(332, 63)
+script = ExtResource("4_ro3km")
+z = -32
+height = -8
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D24"]
+texture = ExtResource("4_0axir")
+offset = Vector2(0, -12)
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D24"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r306l")
