@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://u6csv0racqmt"]
+[gd_scene load_steps=5 format=3 uid="uid://u6csv0racqmt"]
 
 [ext_resource type="Script" path="res://Objects/player/player.gd" id="1_7h68a"]
 [ext_resource type="Texture2D" uid="uid://ys1q3pf3llp2" path="res://Assets/player.png" id="2_6i7rg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8cfqg"]
 size = Vector2(8, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvfjs"]
+size = Vector2(7.5, 2.5)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 motion_mode = 1
@@ -30,6 +33,12 @@ polygon = PackedVector2Array(-5, -3, 5, -3, 5, 1, -5, 1)
 position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_8cfqg")
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_cvfjs")
+
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, 0)
 
@@ -40,10 +49,9 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
 [node name="CoyoteTimer" type="Timer" parent="."]
-process_callback = 0
+wait_time = 0.1
 one_shot = true
 
 [node name="JumpBuffer" type="Timer" parent="."]
-process_callback = 0
 wait_time = 0.1
 one_shot = true
