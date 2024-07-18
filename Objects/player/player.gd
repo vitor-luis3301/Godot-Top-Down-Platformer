@@ -147,4 +147,5 @@ func _physics_process(delta):
 			$Sprite2D.flip_h = false
 	
 	#Make the camera focus on the player's sprite
-	$Camera2D.position.y = lerp($Camera2D.position.y, zfloor, $Camera2D.position_smoothing_speed * delta)
+	if !jump:
+		$Camera2D.position.y = lerp($Camera2D.position.y, zfloor, $Camera2D.position_smoothing_speed * delta)
