@@ -114,7 +114,7 @@ func _physics_process(delta):
 	
 	#Same thing but for half-blocks
 	for i in $Area2D.get_overlapping_bodies():
-		if i.is_in_group("Hlaf-Blocks") or (fmod(i.height / -16, 1) != 0 and (i.height - z) / 16 > -1):
+		if fmod(i.height / -16, 1) != 0 and (i.height - z) / 16 > -1:
 			if i.z >= z:
 				zfloor = i.height+i.z;
 				z_index = 1
