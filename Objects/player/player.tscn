@@ -7,7 +7,7 @@
 size = Vector2(8, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvfjs"]
-size = Vector2(7.5, 2.5)
+size = Vector2(1.5, 2.5)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 motion_mode = 1
