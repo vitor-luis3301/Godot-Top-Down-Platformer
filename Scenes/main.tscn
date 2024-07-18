@@ -19,10 +19,23 @@ size = Vector2(64, 16)
 y_sort_enabled = true
 script = ExtResource("1_2dq2h")
 
+[node name="StaticBody2D25" type="StaticBody2D" parent="." groups=["Blocks"]]
+position = Vector2(277, 35)
+script = ExtResource("4_ro3km")
+height = -40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D25"]
+texture = ExtResource("4_0axir")
+offset = Vector2(0, -20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D25"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_5lv1q")
+
 [node name="StaticBody2D6" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(268, 51)
 script = ExtResource("4_ro3km")
-height = -32
+height = -32.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D6"]
 texture = ExtResource("4_0axir")
@@ -125,7 +138,7 @@ position = Vector2(577, 140)
 [node name="StaticBody2D15" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
 position = Vector2(111, 224)
 script = ExtResource("4_ro3km")
-height = -8
+height = -8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D15"]
 texture = ExtResource("4_0axir")
@@ -140,7 +153,7 @@ shape = SubResource("RectangleShape2D_r306l")
 position = Vector2(111, 240)
 script = ExtResource("4_ro3km")
 z = -8
-height = -8
+height = -8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D16"]
 texture = ExtResource("4_0axir")
@@ -155,7 +168,7 @@ shape = SubResource("RectangleShape2D_r306l")
 position = Vector2(111, 256)
 script = ExtResource("4_ro3km")
 z = -16
-height = -8
+height = -8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D17"]
 texture = ExtResource("4_0axir")
@@ -170,7 +183,7 @@ shape = SubResource("RectangleShape2D_r306l")
 position = Vector2(111, 272)
 script = ExtResource("4_ro3km")
 z = -24
-height = -8
+height = -8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D18"]
 texture = ExtResource("4_0axir")
@@ -185,7 +198,7 @@ shape = SubResource("RectangleShape2D_r306l")
 position = Vector2(111, 288)
 script = ExtResource("4_ro3km")
 z = -32
-height = -8
+height = -8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D19"]
 texture = ExtResource("4_0axir")
@@ -200,7 +213,7 @@ shape = SubResource("RectangleShape2D_r306l")
 position = Vector2(111, 304)
 script = ExtResource("4_ro3km")
 z = -40
-height = -8
+height = -8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D20"]
 texture = ExtResource("4_0axir")
@@ -215,7 +228,7 @@ shape = SubResource("RectangleShape2D_r306l")
 position = Vector2(111, 320)
 script = ExtResource("4_ro3km")
 z = -48
-height = -8
+height = -8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D21"]
 texture = ExtResource("4_0axir")
@@ -229,7 +242,7 @@ shape = SubResource("RectangleShape2D_r306l")
 [node name="StaticBody2D22" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
 position = Vector2(-20, 224)
 script = ExtResource("4_ro3km")
-height = -8
+height = -8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D22"]
 texture = ExtResource("4_0axir")
@@ -243,7 +256,7 @@ shape = SubResource("RectangleShape2D_r306l")
 [node name="StaticBody2D23" type="StaticBody2D" parent="." groups=["Blocks", "Half-Blocks"]]
 position = Vector2(-20, 240)
 script = ExtResource("4_ro3km")
-height = -8
+height = -8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D23"]
 texture = ExtResource("4_0axir")
@@ -258,7 +271,7 @@ shape = SubResource("RectangleShape2D_r306l")
 position = Vector2(332, 63)
 script = ExtResource("4_ro3km")
 z = -32
-height = -8
+height = -8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D24"]
 texture = ExtResource("4_0axir")

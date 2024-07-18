@@ -102,6 +102,10 @@ func _physics_process(delta):
 		
 		if block.is_in_group("Half-Blocks"):
 			add_collision_exception_with(block)
+		
+		if fmod(block.height / -16, 1) != 0 and (block.height - z) / 16 > -1:
+			print((block.height - z) / 16 > -1)
+			add_collision_exception_with(block)
 	
 	#Check if we're above the block
 	if instance_place(position.x, position.y, "Blocks"):

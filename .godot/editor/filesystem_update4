@@ -6,3 +6,5 @@ res://Scenes/main.tscn
 res://Objects/player/player.tscn
 res://Objects/block/block.tscn
 res://Objects/player/player.gd
+res://Scenes/main.gd
+res://Objects/block/block.gd
