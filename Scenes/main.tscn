@@ -91,9 +91,6 @@ vframes = 2
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_5lv1q")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("5_w2g7d")]
-position = Vector2(237, 144)
-
 [node name="StaticBody2D" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(306, 235)
 
@@ -284,12 +281,17 @@ position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
 [node name="StaticBody2D26" type="StaticBody2D" parent="." groups=["Blocks"]]
-position = Vector2(424, 22)
+position = Vector2(426, 85)
 script = ExtResource("4_ro3km")
 height = -64.0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D26"]
 texture = ExtResource("6_ernap")
+offset = Vector2(0, -30)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D26"]
+position = Vector2(0, -30)
 polygon = PackedVector2Array(-64, 32, 0, 64, 63, 32, 0, 0)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("5_w2g7d")]
+position = Vector2(237, 144)
