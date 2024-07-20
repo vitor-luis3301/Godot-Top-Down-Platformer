@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cyhc1kiao3mjr"]
+[gd_scene load_steps=14 format=3 uid="uid://cyhc1kiao3mjr"]
 
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_2dq2h"]
 [ext_resource type="Texture2D" uid="uid://dptbtphq6xwh4" path="res://Assets/terra.png" id="4_0axir"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://xd3glgotcs1i" path="res://Objects/block/block.tscn" id="5_lkt3j"]
 [ext_resource type="PackedScene" uid="uid://u6csv0racqmt" path="res://Objects/player/player.tscn" id="5_w2g7d"]
 [ext_resource type="Texture2D" uid="uid://ck7jspj3m3u7g" path="res://Assets/iso_block.png" id="6_ernap"]
+[ext_resource type="PackedScene" uid="uid://c52hd6k137jj2" path="res://Objects/slope/slope.tscn" id="7_mpgt2"]
+[ext_resource type="Script" path="res://Objects/slope/slope.gd" id="8_qxkk7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lv1q"]
 size = Vector2(64, 16)
@@ -16,12 +18,18 @@ size = Vector2(64, 48)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r306l"]
 size = Vector2(64, 16)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ndwjx"]
+load_path = "res://.godot/imported/slope_left_and_right.png-b9774d15da7f05e8b81013d010965a55.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n57pt"]
+size = Vector2(80, 16)
+
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_2dq2h")
 
 [node name="StaticBody2D25" type="StaticBody2D" parent="." groups=["Blocks"]]
-position = Vector2(257, 72)
+position = Vector2(257, 27)
 script = ExtResource("4_ro3km")
 height = -40.0
 
@@ -34,7 +42,7 @@ position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_5lv1q")
 
 [node name="StaticBody2D6" type="StaticBody2D" parent="." groups=["Blocks"]]
-position = Vector2(248, 88)
+position = Vector2(248, 43)
 script = ExtResource("4_ro3km")
 height = -32.0
 
@@ -47,7 +55,7 @@ position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_5lv1q")
 
 [node name="StaticBody2D5" type="StaticBody2D" parent="." groups=["Blocks"]]
-position = Vector2(171, 120)
+position = Vector2(171, 75)
 script = ExtResource("4_ro3km")
 z = -16
 
@@ -75,7 +83,7 @@ position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_mon2y")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="." groups=["Blocks"]]
-position = Vector2(96, 120)
+position = Vector2(96, 75)
 script = ExtResource("4_ro3km")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
@@ -92,46 +100,46 @@ position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_5lv1q")
 
 [node name="StaticBody2D" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(306, 235)
+position = Vector2(338, 191)
 
 [node name="StaticBody2D2" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(322, 235)
+position = Vector2(354, 191)
 z = -16
 
 [node name="StaticBody2D4" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(338, 235)
+position = Vector2(370, 191)
 z = -32
 
 [node name="StaticBody2D7" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(354, 235)
+position = Vector2(386, 191)
 z = -48
 
 [node name="StaticBody2D8" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(370, 235)
+position = Vector2(402, 191)
 z = -64
 
 [node name="StaticBody2D9" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(386, 235)
+position = Vector2(418, 191)
 z = -80
 
 [node name="StaticBody2D10" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(402, 235)
+position = Vector2(434, 191)
 z = -96
 
 [node name="StaticBody2D11" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(418, 235)
+position = Vector2(450, 191)
 z = -112
 
 [node name="StaticBody2D12" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(434, 235)
+position = Vector2(466, 191)
 z = -128
 
 [node name="StaticBody2D13" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(450, 235)
+position = Vector2(482, 191)
 z = -64
 
 [node name="StaticBody2D14" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(466, 235)
+position = Vector2(498, 191)
 
 [node name="StaticBody2D15" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(141, 216)
@@ -266,7 +274,7 @@ position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
 [node name="StaticBody2D24" type="StaticBody2D" parent="." groups=["Blocks"]]
-position = Vector2(312, 100)
+position = Vector2(312, 55)
 script = ExtResource("4_ro3km")
 z = -32
 height = -8.0
@@ -281,7 +289,7 @@ position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_r306l")
 
 [node name="StaticBody2D26" type="StaticBody2D" parent="." groups=["Blocks"]]
-position = Vector2(426, 85)
+position = Vector2(452, 32)
 script = ExtResource("4_ro3km")
 height = -64.0
 
@@ -295,3 +303,64 @@ polygon = PackedVector2Array(-64, 32, 0, 64, 63, 32, 0, 0)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_w2g7d")]
 position = Vector2(237, 144)
+
+[node name="StaticBody2D27" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(279, 246)
+height = -16
+rotate = 1
+
+[node name="StaticBody2D28" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(295, 246)
+z = -16
+height = -16
+rotate = 1
+
+[node name="StaticBody2D29" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(311, 246)
+z = -32
+height = -16
+rotate = 1
+
+[node name="StaticBody2D30" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(327, 246)
+z = -48
+height = -16
+rotate = 1
+
+[node name="StaticBody2D32" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(343, 246)
+z = -64
+height = -16
+rotate = 1
+
+[node name="StaticBody2D33" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(359, 246)
+z = -80
+height = -16
+rotate = 1
+
+[node name="StaticBody2D34" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(375, 246)
+z = -96
+height = -16
+rotate = 1
+
+[node name="StaticBody2D35" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(391, 246)
+z = -112
+height = -16
+rotate = 1
+
+[node name="StaticBody2D31" type="StaticBody2D" parent="." groups=["Slopes"]]
+position = Vector2(644.282, 212.029)
+script = ExtResource("8_qxkk7")
+height = -16
+rotate = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D31"]
+scale = Vector2(5, 1)
+texture = SubResource("CompressedTexture2D_ndwjx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D31"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_n57pt")

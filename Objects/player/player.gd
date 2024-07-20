@@ -15,7 +15,7 @@ var JUMP_DURATION = 1 #How long is the jump going to be
 
 # Vars to emulate z-axis
 var z = 0  #our z position
-var height = -24  #The height of the player
+var height = -18  #The height of the player
 var zfloor : float = 0  #The floor the player will land on
 var jump = false #If we are jumping or not
 
@@ -96,6 +96,19 @@ func _physics_process(delta):
 		if block.is_in_group("Half-Blocks"):
 			add_collision_exception_with(block)
 		
+		if block.is_in_group("Slopes"):
+			if block.rotate == 1 and direction.x == 1: # slope is facing left and player is going right
+				add_collision_exception_with(block)
+			
+			if block.rotate == 2 and direction.x == -1: # slope is facing right and player is going left
+				add_collision_exception_with(block)
+				
+			if block.rotate == 3 and direction.y == 1: # slope is facing up and player is going down
+				add_collision_exception_with(block)
+			
+			if block.rotate == 4 and direction.y == -1: # slope is facing down and player is going up-
+				add_collision_exception_with(block)
+		
 		if fmod(block.height / -16, 1) != 0 and (block.height - z) / 16 > -1:
 			add_collision_exception_with(block)
 	
@@ -109,6 +122,59 @@ func _physics_process(delta):
 		#Send shadow to the ground
 		else:
 			zfloor = 0;
+	# For slopes is a bit different
+	elif instance_place("Slopes"):
+		var slope = instance_place("Slopes")
+		var goUp : bool # Says if we should or not go up the slope
+		var stoped : bool
+		# When I'm on a slope, I need to identify what direction the slope is facing and the direction of the player
+		if slope.z >= z:
+			if slope.rotate == 1: # slope is facing left
+				if direction.x == -1:  # player is going left
+					goUp = false 
+				elif direction.x == 1: # player is going right
+					goUp = true
+					# If the player is going on the right direction it goes up
+					# Otherwise, It doesn't
+			
+			if slope.rotate == 2: # slope is facing right
+				if direction.x == -1:  # player is going left
+					goUp = true
+				elif direction.x == 1: # player is going right
+					goUp = false
+			
+			if slope.rotate == 3: # slope is facing up
+				if direction.y == -1:  # player is going up
+					goUp = false
+				elif direction.y == 1: # player is going down
+					goUp = true
+			
+			if slope.rotate == 4: # slope is facing down
+				if direction.y == -1:  # player is going up
+					goUp = true
+				elif direction.y == 1: # player is going down
+					goUp = false
+			
+			if direction == Vector2.ZERO:
+				stoped = true
+				# If the player is stoped, It shouldn't go anywhere
+			
+			# Once that's checked, The player will have it's zfloor added or subtracted 
+			# depending on the direction the player is going
+			if goUp == true:
+				# If the player is going on the right direction, it goes up
+				print("It's going up")
+				if zfloor > slope.height+slope.z:
+					z -= 1
+					zfloor -= 1
+			
+			if goUp == false and !stoped == true:
+				# If he's going on the wrong direction... Well, you get it.
+				print("It's going down, I'm yellin' timber")
+				if zfloor < 0:
+					z += 1
+					zfloor += 1
+			
 	else:
 		zfloor = 0
 	
@@ -118,10 +184,8 @@ func _physics_process(delta):
 			if i.z >= z:
 				zfloor = i.height+i.z;
 				z_index = 1
-			else:
-				zfloor = 0;
 			
-	#Hit the bottom of a block
+	# Hit the bottom of a block
 	if instance_place("Blocks"):
 		var block = instance_place("Blocks")
 		#This checks are for making sure we're below the block
@@ -137,7 +201,7 @@ func _physics_process(delta):
 	#Change values accordingly
 	z += zspeed
 	$Sprite2D.position.y = z
-	$CanvasLayer/Label.text = "z: " + str(z) + "\nZspeed: " + str(zspeed) + "\nGravity: " + str(GRAVITY)
+	$CanvasLayer/Label.text = "z: " + str(z) + "\nZfloor: " + str(zfloor) + "\nGravity: " + str(GRAVITY)
 	$Polygon2D.position.y = zfloor
 	
 	if direction.x != 0:
@@ -147,5 +211,8 @@ func _physics_process(delta):
 			$Sprite2D.flip_h = false
 	
 	#Make the camera focus on the player's sprite
-	if !jump:
+	if !jump and z > -72:
 		$Camera2D.position.y = lerp($Camera2D.position.y, zfloor, $Camera2D.position_smoothing_speed * delta)
+	
+	if z <= -72:
+		$Camera2D.position.y = lerp($Camera2D.position.y, z, $Camera2D.position_smoothing_speed * delta)
