@@ -216,7 +216,7 @@ func _physics_process(delta):
 	#Change values accordingly
 	z += zspeed
 	$Sprite2D.position.y = z # to get the ilusion of the player jumping
-	$CanvasLayer/Label.text = "z: " + str(z) + "\nZfloor: " + str(zfloor) + "\nGravity: " + str(GRAVITY) # print vars to the screen
+	$CanvasLayer/Label.text ="FPS: " + str(Engine.get_frames_per_second()) + "\nz: " + str(z) + "\nZfloor: " + str(zfloor) + "\nGravity: " + str(GRAVITY) # print vars to the screen
 	$Polygon2D.position.y = zfloor # change the position of the shadow
 	
 	# Flip the player's sprite according to it's direction
