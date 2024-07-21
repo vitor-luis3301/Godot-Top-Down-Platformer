@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bktag52vmau6i"]
+
+[ext_resource type="Texture2D" uid="uid://dptbtphq6xwh4" path="res://Assets/terra.png" id="1_4vvae"]
+[ext_resource type="Script" path="res://Objects/block/block.gd" id="1_r4nqf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5lek5"]
+size = Vector2(64, 16)
+
+[node name="StaticBody2D" type="StaticBody2D" groups=["Blocks"]]
+script = ExtResource("1_r4nqf")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(0, 8)
+color = Color(0, 0, 0, 0.490196)
+polygon = PackedVector2Array(-32, -8, -32, -24, 32, -24, 32, -8)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4vvae")
+offset = Vector2(0, -12)
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_5lek5")

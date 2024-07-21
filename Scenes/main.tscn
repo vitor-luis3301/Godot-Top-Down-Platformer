@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://xd3glgotcs1i" path="res://Objects/block/block.tscn" id="5_lkt3j"]
 [ext_resource type="PackedScene" uid="uid://u6csv0racqmt" path="res://Objects/player/player.tscn" id="5_w2g7d"]
 [ext_resource type="Texture2D" uid="uid://ck7jspj3m3u7g" path="res://Assets/iso_block.png" id="6_ernap"]
-[ext_resource type="PackedScene" uid="uid://diiijrjjc7bay" path="res://Scenes/slopes_testing_scene.tscn" id="7_37ehs"]
+[ext_resource type="PackedScene" uid="uid://c52hd6k137jj2" path="res://Objects/slope/slope.tscn" id="7_mpgt2"]
+[ext_resource type="PackedScene" uid="uid://bktag52vmau6i" path="res://Objects/slab/slab.tscn" id="8_dgwyo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5lv1q"]
 size = Vector2(64, 16)
@@ -14,289 +15,252 @@ size = Vector2(64, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mon2y"]
 size = Vector2(64, 48)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r306l"]
-size = Vector2(64, 16)
-
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_2dq2h")
 
-[node name="StaticBody2D25" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="CharacterBody2D" parent="." instance=ExtResource("5_w2g7d")]
+position = Vector2(237, 144)
+
+[node name="Block_40" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(257, 27)
 script = ExtResource("4_ro3km")
 height = -40.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D25"]
+[node name="Sprite2D" type="Sprite2D" parent="Block_40"]
 texture = ExtResource("4_0axir")
 offset = Vector2(0, -20)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D25"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block_40"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_5lv1q")
 
-[node name="StaticBody2D6" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="Block_32" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(248, 43)
 script = ExtResource("4_ro3km")
 height = -32.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D6"]
+[node name="Sprite2D" type="Sprite2D" parent="Block_32"]
 texture = ExtResource("4_0axir")
 offset = Vector2(0, -12)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block_32"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_5lv1q")
 
-[node name="StaticBody2D5" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="Block_16_z16" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(171, 75)
 script = ExtResource("4_ro3km")
 z = -16
+height = -16.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D5"]
+[node name="Polygon2D" type="Polygon2D" parent="Block_16_z16"]
+color = Color(0, 0, 0, 0.454902)
+polygon = PackedVector2Array(-32, 12, -32, -36, 32, -36, 32, 12)
+
+[node name="Sprite2D" type="Sprite2D" parent="Block_16_z16"]
 texture = ExtResource("4_0axir")
 vframes = 2
 
-[node name="Sprite2D5" type="Sprite2D" parent="StaticBody2D5/Sprite2D"]
+[node name="Sprite2D5" type="Sprite2D" parent="Block_16_z16/Sprite2D"]
 position = Vector2(0, -40)
 texture = ExtResource("4_0axir")
 vframes = 2
 
-[node name="Sprite2D4" type="Sprite2D" parent="StaticBody2D5/Sprite2D"]
+[node name="Sprite2D4" type="Sprite2D" parent="Block_16_z16/Sprite2D"]
 position = Vector2(0, -24)
 texture = ExtResource("4_0axir")
 vframes = 2
 
-[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D5/Sprite2D"]
+[node name="Sprite2D2" type="Sprite2D" parent="Block_16_z16/Sprite2D"]
 position = Vector2(0, -8)
 texture = ExtResource("4_0axir")
 vframes = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block_16_z16"]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_mon2y")
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="Block_16" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(96, 75)
 script = ExtResource("4_ro3km")
+height = -16.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
+[node name="Sprite2D" type="Sprite2D" parent="Block_16"]
 texture = ExtResource("4_0axir")
 vframes = 2
 
-[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D3/Sprite2D"]
+[node name="Sprite2D2" type="Sprite2D" parent="Block_16/Sprite2D"]
 position = Vector2(0, -8)
 texture = ExtResource("4_0axir")
 vframes = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block_16"]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_5lv1q")
 
 [node name="StaticBody2D" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(317, 184)
+height = -16.0
 
 [node name="StaticBody2D2" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(333, 184)
 z = -16
+height = -16.0
 
 [node name="StaticBody2D4" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(349, 184)
 z = -32
+height = -16.0
 
 [node name="StaticBody2D7" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(365, 184)
 z = -48
+height = -16.0
 
 [node name="StaticBody2D8" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(381, 184)
 z = -64
+height = -16.0
 
 [node name="StaticBody2D9" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(397, 184)
 z = -80
+height = -16.0
 
 [node name="StaticBody2D10" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(413, 184)
 z = -96
+height = -16.0
 
 [node name="StaticBody2D11" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(429, 184)
 z = -112
+height = -16.0
 
 [node name="StaticBody2D12" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(445, 184)
 z = -128
+height = -16.0
 
 [node name="StaticBody2D13" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(461, 184)
 z = -64
+height = -16.0
 
 [node name="StaticBody2D14" parent="." instance=ExtResource("5_lkt3j")]
 position = Vector2(477, 184)
+height = -16.0
 
-[node name="StaticBody2D15" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="StaticBody2D17" parent="." instance=ExtResource("8_dgwyo")]
 position = Vector2(141, 216)
-script = ExtResource("4_ro3km")
 height = -8.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D15"]
-texture = ExtResource("4_0axir")
-offset = Vector2(0, -12)
-vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D15"]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_r306l")
-
-[node name="StaticBody2D16" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="StaticBody2D18" parent="." instance=ExtResource("8_dgwyo")]
 position = Vector2(141, 232)
-script = ExtResource("4_ro3km")
 z = -8
 height = -8.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D16"]
-texture = ExtResource("4_0axir")
-offset = Vector2(0, -12)
-vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D16"]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_r306l")
-
-[node name="StaticBody2D17" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="StaticBody2D19" parent="." instance=ExtResource("8_dgwyo")]
 position = Vector2(141, 248)
-script = ExtResource("4_ro3km")
 z = -16
 height = -8.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D17"]
-texture = ExtResource("4_0axir")
-offset = Vector2(0, -12)
-vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D17"]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_r306l")
-
-[node name="StaticBody2D18" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="StaticBody2D20" parent="." instance=ExtResource("8_dgwyo")]
 position = Vector2(141, 264)
-script = ExtResource("4_ro3km")
 z = -24
 height = -8.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D18"]
-texture = ExtResource("4_0axir")
-offset = Vector2(0, -12)
-vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D18"]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_r306l")
-
-[node name="StaticBody2D19" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="StaticBody2D24" parent="." instance=ExtResource("8_dgwyo")]
 position = Vector2(141, 280)
-script = ExtResource("4_ro3km")
 z = -32
 height = -8.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D19"]
-texture = ExtResource("4_0axir")
-offset = Vector2(0, -12)
-vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D19"]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_r306l")
-
-[node name="StaticBody2D20" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="StaticBody2D27" parent="." instance=ExtResource("8_dgwyo")]
 position = Vector2(141, 296)
-script = ExtResource("4_ro3km")
 z = -40
 height = -8.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D20"]
-texture = ExtResource("4_0axir")
-offset = Vector2(0, -12)
-vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D20"]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_r306l")
-
-[node name="StaticBody2D21" type="StaticBody2D" parent="." groups=["Blocks"]]
-position = Vector2(141, 312)
-script = ExtResource("4_ro3km")
-z = -48
-height = -8.0
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D21"]
-texture = ExtResource("4_0axir")
-offset = Vector2(0, -12)
-vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D21"]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_r306l")
-
-[node name="StaticBody2D22" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="StaticBody2D3" parent="." instance=ExtResource("8_dgwyo")]
 position = Vector2(10, 216)
-script = ExtResource("4_ro3km")
 height = -8.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D22"]
-texture = ExtResource("4_0axir")
-offset = Vector2(0, -12)
-vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D22"]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_r306l")
-
-[node name="StaticBody2D23" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="StaticBody2D5" parent="." instance=ExtResource("8_dgwyo")]
 position = Vector2(10, 232)
-script = ExtResource("4_ro3km")
 height = -8.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D23"]
-texture = ExtResource("4_0axir")
-offset = Vector2(0, -12)
-vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D23"]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_r306l")
-
-[node name="StaticBody2D24" type="StaticBody2D" parent="." groups=["Blocks"]]
-position = Vector2(312, 55)
-script = ExtResource("4_ro3km")
-z = -32
-height = -8.0
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D24"]
-texture = ExtResource("4_0axir")
-offset = Vector2(0, -12)
-vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D24"]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_r306l")
-
-[node name="StaticBody2D26" type="StaticBody2D" parent="." groups=["Blocks"]]
+[node name="ico_block" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(452, 32)
 script = ExtResource("4_ro3km")
 height = -64.0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D26"]
+[node name="Sprite2D" type="Sprite2D" parent="ico_block"]
 texture = ExtResource("6_ernap")
 offset = Vector2(0, -30)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D26"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ico_block"]
 position = Vector2(0, -30)
 polygon = PackedVector2Array(-64, 32, 0, 64, 63, 32, 0, 0)
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("5_w2g7d")]
-position = Vector2(237, 144)
+[node name="StaticBody2D37" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(397, 277)
+height = -16
+rotate = 1
 
-[node name="Slopes" parent="." instance=ExtResource("7_37ehs")]
-y_sort_enabled = true
-position = Vector2(323, 294)
+[node name="StaticBody2D38" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(413, 277)
+z = -16
+height = -16
+rotate = 1
+
+[node name="StaticBody2D39" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(429, 277)
+z = -32
+height = -16
+rotate = 1
+
+[node name="StaticBody2D40" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(445, 277)
+z = -48
+height = -16
+rotate = 1
+
+[node name="StaticBody2D41" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(461, 277)
+z = -64
+height = -16
+rotate = 1
+
+[node name="StaticBody2D42" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(477, 277)
+z = -80
+height = -16
+rotate = 1
+
+[node name="StaticBody2D43" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(493, 277)
+z = -96
+height = -16
+rotate = 1
+
+[node name="StaticBody2D44" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(509, 277)
+z = -112
+height = -16
+rotate = 1
+
+[node name="StaticBody2D45" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(305, 306)
+height = -16
+rotate = 2
+
+[node name="StaticBody2D46" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(289, 306)
+z = -16
+height = -16
+rotate = 2
+
+[node name="StaticBody2D6" parent="." instance=ExtResource("8_dgwyo")]
+position = Vector2(312, 55)
+z = -32
+height = -8.0
