@@ -109,6 +109,9 @@ func _physics_process(delta):
 			if block.rotate == 4 and direction.y == -1: # slope is facing down and player is going up-
 				add_collision_exception_with(block)
 		
+			if z <= block.height+block.z or height+z >= block.z:
+				add_collision_exception_with(block)
+		
 		if fmod(block.height / -16, 1) != 0 and (block.height - z) / 16 > -1:
 			add_collision_exception_with(block)
 	
@@ -126,12 +129,14 @@ func _physics_process(delta):
 	elif instance_place("Slopes"):
 		var slope = instance_place("Slopes")
 		var goUp : bool # Says if we should or not go up the slope
-		var stoped : bool
-		# When I'm on a slope, I need to identify what direction the slope is facing and the direction of the player
+		var stoped : bool # Says if we are not moving
+		
+		# When we're on a slope, we need to identify what direction the slope is facing and the direction of the player
 		if slope.z >= z:
-			if slope.rotate == 1: # slope is facing left
-				if direction.x == -1:  # player is going left
-					goUp = false 
+			if slope.rotate == 1: # if slope is facing left..
+				if direction.x == -1:  # ...and player is also going left
+					# We don't go up the slope
+					goUp = false
 				elif direction.x == 1: # player is going right
 					goUp = true
 					# If the player is going on the right direction it goes up
@@ -163,35 +168,45 @@ func _physics_process(delta):
 			# depending on the direction the player is going
 			if goUp == true:
 				# If the player is going on the right direction, it goes up
-				print("It's going up")
 				if zfloor > slope.height+slope.z:
-					z -= 1
-					zfloor -= 1
+					# The only limit is the slopes height
+					if jump == false:
+						z -= 2
+					zfloor -= 2
 			
-			if goUp == false and !stoped == true:
+			if goUp == false and stoped == false:
 				# If he's going on the wrong direction... Well, you get it.
-				print("It's going down, I'm yellin' timber")
 				if zfloor < 0:
-					z += 1
-					zfloor += 1
+					zfloor += 1.5
+					if jump == false:
+						z += 1.5
+				# ALSO: jump == false is there so that the player don't go up or down
+				# unecessarily when jumping. We want his z position to change only when he's standing on the slope
 			
+			# If the player is jumping over the slope, it's zfloor is still changed
+			if goUp == false and jump == true:
+				zfloor = slope.height+slope.z
 	else:
+		# If we are not on top of any block, we are on the floor
 		zfloor = 0
 	
-	#Same thing but for half-blocks
+	# Change z and zfloor for half blocks
 	for i in $Area2D.get_overlapping_bodies():
 		if fmod(i.height / -16, 1) != 0 and (i.height - z) / 16 > -1:
 			if i.z >= z:
 				zfloor = i.height+i.z;
 				z_index = 1
+	# When something is detected as being a Half-block, the player goes up instantly,
 			
-	# Hit the bottom of a block
-	if instance_place("Blocks"):
-		var block = instance_place("Blocks")
-		#This checks are for making sure we're below the block
-		if block and block.z > z+height+zspeed and zfloor >= block.z:
-			if zspeed <= 0 and z > block.z: #z > block.z ensures this change of zSpeed doesn't occur when we're above a block
-				zspeed = GRAVITY
+	# Hit the bottom of any block
+	var groups = ["Blocks", "Slopes", "Half-Blocks", "Stairs"]
+	for i in groups:
+		if instance_place(i):
+			var block = instance_place(i)
+			#This checks are for making sure we're below the block
+			if block and block.z > z+height+zspeed and zfloor >= block.z:
+				if zspeed <= 0 and z > block.z: #z > block.z ensures this change of zSpeed doesn't occur when we're above a block
+					zspeed = GRAVITY
 	
 	#Do I really need to explain what this does?
 	move_and_slide()
@@ -200,10 +215,11 @@ func _physics_process(delta):
 	
 	#Change values accordingly
 	z += zspeed
-	$Sprite2D.position.y = z
-	$CanvasLayer/Label.text = "z: " + str(z) + "\nZfloor: " + str(zfloor) + "\nGravity: " + str(GRAVITY)
-	$Polygon2D.position.y = zfloor
+	$Sprite2D.position.y = z # to get the ilusion of the player jumping
+	$CanvasLayer/Label.text = "z: " + str(z) + "\nZfloor: " + str(zfloor) + "\nGravity: " + str(GRAVITY) # print vars to the screen
+	$Polygon2D.position.y = zfloor # change the position of the shadow
 	
+	# Flip the player's sprite according to it's direction
 	if direction.x != 0:
 		if direction.x < 0:
 			$Sprite2D.flip_h = true

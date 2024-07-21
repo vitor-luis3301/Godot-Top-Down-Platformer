@@ -33,6 +33,9 @@ polygon = PackedVector2Array(-5, -3, 5, -3, 5, 1, -5, 1)
 position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_8cfqg")
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
@@ -42,9 +45,6 @@ shape = SubResource("RectangleShape2D_cvfjs")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(1, -1.5)
 shape = SubResource("RectangleShape2D_cvfjs")
-
-[node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(0, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
