@@ -22,7 +22,7 @@ var jump = false #If we are jumping or not
 var zspeed = 0 #Our velocity in the z axis
 
 func instance_place(group):
-	var bodies : Array
+	var bodies : Array = []
 	for i in $Area2D.get_overlapping_bodies():
 		if i.is_in_group(group):
 			bodies.append(i)
@@ -97,6 +97,9 @@ func _physics_process(delta):
 			add_collision_exception_with(block)
 		
 		if block.is_in_group("Slopes"):
+			if z <= block.height+block.z or height+z >= block.z:
+				add_collision_exception_with(block)
+			
 			if block.rotate == 1 and direction.x == 1: # slope is facing left and player is going right
 				add_collision_exception_with(block)
 			
@@ -123,73 +126,86 @@ func _physics_process(delta):
 			zfloor = block.height+block.z;
 			z_index = 1
 		#Send shadow to the ground
-		else:
-			zfloor = 0;
-	# For slopes is a bit different
 	elif instance_place("Slopes"):
-		var slope = instance_place("Slopes")
-		var goUp : bool # Says if we should or not go up the slope
-		var stoped : bool # Says if we are not moving
-		
-		# When we're on a slope, we need to identify what direction the slope is facing and the direction of the player
-		if slope.z >= z:
-			if slope.rotate == 1: # if slope is facing left..
-				if direction.x == -1:  # ...and player is also going left
-					# We don't go up the slope
-					goUp = false
-				elif direction.x == 1: # player is going right
-					goUp = true
-					# If the player is going on the right direction it goes up
-					# Otherwise, It doesn't
-			
-			if slope.rotate == 2: # slope is facing right
-				if direction.x == -1:  # player is going left
-					goUp = true
-				elif direction.x == 1: # player is going right
-					goUp = false
-			
-			if slope.rotate == 3: # slope is facing up
-				if direction.y == -1:  # player is going up
-					goUp = false
-				elif direction.y == 1: # player is going down
-					goUp = true
-			
-			if slope.rotate == 4: # slope is facing down
-				if direction.y == -1:  # player is going up
-					goUp = true
-				elif direction.y == 1: # player is going down
-					goUp = false
-			
-			if direction == Vector2.ZERO:
-				stoped = true
-				# If the player is stoped, It shouldn't go anywhere
-			
-			# Once that's checked, The player will have it's zfloor added or subtracted 
-			# depending on the direction the player is going
-			if goUp == true:
-				# If the player is going on the right direction, it goes up
-				if zfloor > slope.height+slope.z:
-					# The only limit is the slopes height
-					if jump == false:
-						z -= 2
-					zfloor -= 2
-			
-			if goUp == false and stoped == false:
-				# If he's going on the wrong direction... Well, you get it.
-				if zfloor < 0:
-					zfloor += 1.5
-					if jump == false:
-						z += 1.5
-				# ALSO: jump == false is there so that the player don't go up or down
-				# unecessarily when jumping. We want his z position to change only when he's standing on the slope
-			
-			# If the player is jumping over the slope, it's zfloor is still changed
-			if goUp == false and jump == true:
-				zfloor = slope.height+slope.z
+	# For slopes is a bit different
+		for i in $Area2D.get_overlapping_bodies(): 
+			if i.is_in_group("Slopes"):
+				var slope = i
+				var goUp : bool # Says if we should or not go up the slope
+				var stoped : bool # Says if we are not moving
+				
+				# When we're on a slope, we need to identify what direction the slope is facing and the direction of the player
+				if slope.z >= z:
+					if slope.rotate == 1: # if slope is facing left..
+						z_index = 1
+						if direction.x == -1:  # ...and player is also going left
+							# We don't go up the slope
+							goUp = false
+						elif direction.x == 1: # player is going right
+							goUp = true
+							# If the player is going on the right direction it goes up
+							# Otherwise, It doesn't
+						elif direction.y != 0:
+							stoped = true
+					
+					if slope.rotate == 2: # slope is facing right
+						z_index = 1
+						if direction.x == -1:  # player is going left
+							goUp = true
+						elif direction.x == 1: # player is going right
+							goUp = false
+						elif direction.y != 0:
+							stoped = true
+					
+					if slope.rotate == 3: # slope is facing up
+						if direction.y == -1:  # player is going up
+							goUp = false
+						elif direction.y == 1: # player is going down
+							goUp = true
+						elif direction.x != 0:
+							stoped = true
+					
+					if slope.rotate == 4: # slope is facing down
+						z_index = 1
+						if direction.y == -1:  # player is going up
+							goUp = true
+						elif direction.y == 1: # player is going down
+							goUp = false
+						elif direction.x != 0:
+							stoped = true
+					
+					if direction == Vector2.ZERO:
+						stoped = true
+						# If the player is stoped, It shouldn't go anywhere
+					
+					# Once that's checked, The player will have it's zfloor added or subtracted 
+					# depending on the direction the player is going
+					if goUp == true:
+						# If the player is going on the right direction, it goes up
+						if zfloor > slope.height+slope.z:
+							print("It's goin up")
+							# The only limit is the slopes height
+							zfloor -= 2
+							if jump == false:
+								z -= 2
+					
+					if goUp == false and stoped == false:
+						# If he's going on the wrong direction... Well, you get it.
+						print("It's going down, I'm yellig timberrrrrrrr")
+						if zfloor < 0:
+							zfloor += 1.3
+							if jump == false:
+								zspeed = 0
+								z += 1.3
+							
+						# ALSO: jump == false is there so that the player don't go up or down
+						# unecessarily when jumping. We want his z position to change only when he's standing on the slope
+					
+					# If the player is jumping over the slope, it's zfloor is still changed
+					if goUp == false and jump == true:
+						zfloor = slope.height+slope.z
 	else:
-		# If we are not on top of any block, we are on the floor
-		zfloor = 0
-	
+		zfloor = 0;
 	# Change z and zfloor for half blocks
 	for i in $Area2D.get_overlapping_bodies():
 		if fmod(i.height / -16, 1) != 0 and (i.height - z) / 16 > -1:
@@ -216,7 +232,7 @@ func _physics_process(delta):
 	#Change values accordingly
 	z += zspeed
 	$Sprite2D.position.y = z # to get the ilusion of the player jumping
-	$CanvasLayer/Label.text ="FPS: " + str(Engine.get_frames_per_second()) + "\nz: " + str(z) + "\nZfloor: " + str(zfloor) + "\nGravity: " + str(GRAVITY) # print vars to the screen
+	$CanvasLayer/Label.text ="FPS: " + str(Engine.get_frames_per_second()) + "\nz: " + str(z) + "\nZfloor: " + str(zfloor) + "\nZspeed: " + str(zspeed) # print vars to the screen
 	$Polygon2D.position.y = zfloor # change the position of the shadow
 	
 	# Flip the player's sprite according to it's direction

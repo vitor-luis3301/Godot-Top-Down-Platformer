@@ -19,9 +19,6 @@ size = Vector2(64, 48)
 y_sort_enabled = true
 script = ExtResource("1_2dq2h")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("5_w2g7d")]
-position = Vector2(237, 144)
-
 [node name="Block_40" type="StaticBody2D" parent="." groups=["Blocks"]]
 position = Vector2(257, 27)
 script = ExtResource("4_ro3km")
@@ -264,3 +261,38 @@ rotate = 2
 position = Vector2(312, 55)
 z = -32
 height = -8.0
+
+[node name="StaticBody2D15" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(525, 277)
+z = -112
+height = -16.0
+
+[node name="StaticBody2D16" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(353, 322)
+height = -16
+rotate = 3
+
+[node name="StaticBody2D22" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(385, 322)
+height = -16
+rotate = 3
+
+[node name="StaticBody2D26" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(385, 338)
+z = -16
+height = -16
+rotate = 3
+
+[node name="StaticBody2D23" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(321, 290)
+height = -16
+rotate = 4
+
+[node name="StaticBody2D25" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(321, 274)
+z = -16
+height = -16
+rotate = 4
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("5_w2g7d")]
+position = Vector2(237, 144)
