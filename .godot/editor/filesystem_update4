@@ -2,5 +2,4 @@ res://Scenes/main.tscn
 res://Objects/player/player.tscn
 res://Objects/block/block.tscn
 res://Objects/slope/slope.tscn
-res://Objects/player/player.gd
-res://Scenes/slopes_testing_scene.tscn
+res://Objects/slab/slab.tscn

@@ -29,7 +29,19 @@ func instance_place(group):
 	
 	if bodies.size() > 0:
 		return bodies[0]
-	return null
+	else:
+		return null
+
+func multiple_instance_place(group):
+	var bodies : Array = []
+	for i in $Area2D.get_overlapping_bodies():
+		if i.is_in_group(group):
+			bodies.append(i)
+	
+	if bodies.size() > 0:
+		return bodies
+	else:
+		return null
 
 func _ready():
 	MAX_JUMP_VELOCITY = -sqrt(2 * (2 * MAX_JUMP_HEIGHT / pow(JUMP_DURATION, 2)) * MAX_JUMP_HEIGHT)
@@ -85,7 +97,7 @@ func _physics_process(delta):
 	if $RayCast2D.is_colliding():
 		var block = $RayCast2D.get_collider()
 		
-		#If we are, we shouldn't collide with it
+		#If we are either above or below it, we shouldn't collide with it
 		if z <= block.height+block.z or height+z >= block.z:
 			add_collision_exception_with(block)
 		#Otherwise, we do
@@ -118,14 +130,23 @@ func _physics_process(delta):
 		if fmod(block.height / -16, 1) != 0 and (block.height - z) / 16 > -1:
 			add_collision_exception_with(block)
 	
-	#Check if we're above the block
-	if instance_place("Blocks"):
-		var block = instance_place("Blocks")
+	#Check if we're inside the block's collision
+	if multiple_instance_place("Blocks"):
+		var blocks = multiple_instance_place("Blocks")
 		#If we're higher than the block, send the shadow to the top of that block
-		if block.z >= z:
-			zfloor = block.height+block.z;
+		if blocks[0].z >= z:
+			zfloor = blocks[0].height+blocks[0].z;
 			z_index = 1
-		#Send shadow to the ground
+		
+		#If we're below the block, send the player to the ground
+		if blocks[0].z < z:
+			if blocks.size() > 1:
+				if blocks[1].z >= z:
+					zfloor = blocks[1].height+blocks[1].z
+			else:
+				zfloor = 0
+			z_index = 1
+		
 	elif instance_place("Slopes"):
 	# For slopes is a bit different
 		for i in $Area2D.get_overlapping_bodies(): 
@@ -183,7 +204,6 @@ func _physics_process(delta):
 					if goUp == true:
 						# If the player is going on the right direction, it goes up
 						if zfloor > slope.height+slope.z:
-							print("It's goin up")
 							# The only limit is the slopes height
 							zfloor -= 2
 							if jump == false:
@@ -191,7 +211,6 @@ func _physics_process(delta):
 					
 					if goUp == false and stoped == false:
 						# If he's going on the wrong direction... Well, you get it.
-						print("It's going down, I'm yellig timberrrrrrrr")
 						if zfloor < 0:
 							zfloor += 1.3
 							if jump == false:
@@ -244,7 +263,7 @@ func _physics_process(delta):
 	
 	#Make the camera focus on the player's sprite
 	if !jump and z > -72:
-		$Camera2D.position.y = lerp($Camera2D.position.y, zfloor, $Camera2D.position_smoothing_speed * delta)
+		$Camera2D.position.y = lerp($Camera2D.position.y-2, zfloor, $Camera2D.position_smoothing_speed * delta)
 	
 	if z <= -72:
-		$Camera2D.position.y = lerp($Camera2D.position.y, z, $Camera2D.position_smoothing_speed * delta)
+		$Camera2D.position.y = lerp($Camera2D.position.y-2, z, $Camera2D.position_smoothing_speed * delta)
