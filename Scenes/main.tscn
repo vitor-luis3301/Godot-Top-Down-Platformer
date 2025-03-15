@@ -96,59 +96,6 @@ vframes = 2
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_5lv1q")
 
-[node name="StaticBody2D" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(317, 184)
-height = -16.0
-
-[node name="StaticBody2D2" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(333, 184)
-z = -16
-height = -16.0
-
-[node name="StaticBody2D4" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(349, 184)
-z = -32
-height = -16.0
-
-[node name="StaticBody2D7" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(365, 184)
-z = -48
-height = -16.0
-
-[node name="StaticBody2D8" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(381, 184)
-z = -64
-height = -16.0
-
-[node name="StaticBody2D9" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(397, 184)
-z = -80
-height = -16.0
-
-[node name="StaticBody2D10" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(413, 184)
-z = -96
-height = -16.0
-
-[node name="StaticBody2D11" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(429, 184)
-z = -112
-height = -16.0
-
-[node name="StaticBody2D12" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(445, 184)
-z = -128
-height = -16.0
-
-[node name="StaticBody2D13" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(461, 184)
-z = -64
-height = -16.0
-
-[node name="StaticBody2D14" parent="." instance=ExtResource("5_lkt3j")]
-position = Vector2(477, 184)
-height = -16.0
-
 [node name="StaticBody2D17" parent="." instance=ExtResource("8_dgwyo")]
 position = Vector2(141, 216)
 height = -8.0
@@ -224,17 +171,34 @@ rotate = 1
 
 [node name="StaticBody2D41" parent="." instance=ExtResource("7_mpgt2")]
 position = Vector2(461, 277)
+height = -16
+rotate = 1
+
+[node name="StaticBody2D47" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(461, 277)
 z = -64
 height = -16
 rotate = 1
 
 [node name="StaticBody2D42" parent="." instance=ExtResource("7_mpgt2")]
 position = Vector2(477, 277)
+z = -16
+height = -16
+rotate = 1
+
+[node name="StaticBody2D48" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(477, 277)
 z = -80
 height = -16
 rotate = 1
 
 [node name="StaticBody2D43" parent="." instance=ExtResource("7_mpgt2")]
+position = Vector2(493, 277)
+z = -32
+height = -16
+rotate = 1
+
+[node name="StaticBody2D49" parent="." instance=ExtResource("7_mpgt2")]
 position = Vector2(493, 277)
 z = -96
 height = -16
@@ -296,3 +260,60 @@ rotate = 4
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_w2g7d")]
 position = Vector2(237, 144)
+
+[node name="StaticBody2D9" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(397, 184)
+height = -16.0
+
+[node name="StaticBody2D" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(317, 184)
+height = -16.0
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(333, 184)
+z = -16
+height = -16.0
+
+[node name="StaticBody2D4" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(349, 184)
+z = -32
+height = -16.0
+
+[node name="StaticBody2D7" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(365, 184)
+z = -48
+height = -16.0
+
+[node name="StaticBody2D8" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(381, 184)
+z = -64
+height = -16.0
+
+[node name="StaticBody2D21" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(397, 184)
+z = -80
+height = -16.0
+
+[node name="StaticBody2D10" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(413, 184)
+z = -96
+height = -16.0
+
+[node name="StaticBody2D11" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(429, 184)
+z = -112
+height = -16.0
+
+[node name="StaticBody2D12" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(445, 184)
+z = -128
+height = -16.0
+
+[node name="StaticBody2D13" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(461, 184)
+z = -64
+height = -16.0
+
+[node name="StaticBody2D14" parent="." instance=ExtResource("5_lkt3j")]
+position = Vector2(477, 184)
+height = -16.0

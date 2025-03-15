@@ -3,3 +3,5 @@ res://Objects/player/player.tscn
 res://Objects/block/block.tscn
 res://Objects/slope/slope.tscn
 res://Objects/slab/slab.tscn
+res://testing.tscn
+res://Objects/player/player.gd

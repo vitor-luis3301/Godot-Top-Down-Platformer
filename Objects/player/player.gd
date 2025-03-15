@@ -2,9 +2,10 @@ extends CharacterBody2D
 
 @onready var coyoteTimer = $CoyoteTimer
 @onready var jumpBuffer = $JumpBuffer
+@onready var ray = $RayCast2D
 
 #General variables
-var SPEED = 300.0
+var SPEED = 100.0
 var MAX_JUMP_VELOCITY : float 
 var MIN_JUMP_VELOCITY : float
 var GRAVITY = 0.2
@@ -21,18 +22,23 @@ var jump = false #If we are jumping or not
 
 var zspeed = 0 #Our velocity in the z axis
 
-func instance_place(group):
-	var bodies : Array = []
-	for i in $Area2D.get_overlapping_bodies():
-		if i.is_in_group(group):
-			bodies.append(i)
-	
-	if bodies.size() > 0:
-		return bodies[0]
-	else:
-		return null
 
-func multiple_instance_place(group):
+func ray_instance_place(group):
+	var objects_collide = [] #The colliding objects go here.
+	while ray.is_colliding():
+		var obj = ray.get_collider() #get the next object that is colliding.
+		if obj.is_in_group(group):
+			objects_collide.append( obj ) #add it to the array.
+		ray.add_exception( obj ) #add to ray's exception. That way it could detect something being behind it.
+		ray.force_raycast_update() #update the ray's collision query.
+
+	#after all is done, remove the objects from ray's exception.
+	for obj in objects_collide:
+		ray.remove_exception( obj )
+	
+	return objects_collide
+
+func instance_place(group):
 	var bodies : Array = []
 	for i in $Area2D.get_overlapping_bodies():
 		if i.is_in_group(group):
@@ -64,11 +70,11 @@ func _input(event):
 func _physics_process(delta):
 	# Get the input direction
 	var direction = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-	velocity = direction * 100
+	velocity = direction * SPEED
 	
 	#handle the direction of the raycast
 	if direction != Vector2.ZERO:
-		$RayCast2D.target_position = direction * 24
+		ray.target_position = direction * 16
 	
 	#If we're not on the floor, apply gravity
 	if z < zfloor:
@@ -94,135 +100,37 @@ func _physics_process(delta):
 		jump = true
 	
 	#Check if we are above or below the block
-	if $RayCast2D.is_colliding():
-		var block = $RayCast2D.get_collider()
+	if ray.is_colliding():
+		var blocks = ray_instance_place("Blocks")
+		blocks.sort_custom(func (a, b): return a.z > b.z)
 		
-		#If we are either above or below it, we shouldn't collide with it
-		if z <= block.height+block.z or height+z >= block.z:
-			add_collision_exception_with(block)
-		#Otherwise, we do
-		else:
-			remove_collision_exception_with(block)
-		
-		#Same thing, but for Half-blocks
-		if block.is_in_group("Half-Blocks"):
-			add_collision_exception_with(block)
-		
-		if block.is_in_group("Slopes"):
+		for block in blocks:
+			#If we are either above or below it, we shouldn't collide with it
 			if z <= block.height+block.z or height+z >= block.z:
 				add_collision_exception_with(block)
+			#Otherwise, we do
+			else:
+				remove_collision_exception_with(block)
 			
-			if block.rotate == 1 and direction.x == 1: # slope is facing left and player is going right
+			if fmod(block.height / -16, 1) != 0 and (block.height - z) / 16 > -1:
 				add_collision_exception_with(block)
-			
-			if block.rotate == 2 and direction.x == -1: # slope is facing right and player is going left
-				add_collision_exception_with(block)
-				
-			if block.rotate == 3 and direction.y == 1: # slope is facing up and player is going down
-				add_collision_exception_with(block)
-			
-			if block.rotate == 4 and direction.y == -1: # slope is facing down and player is going up-
-				add_collision_exception_with(block)
-		
-			if z <= block.height+block.z or height+z >= block.z:
-				add_collision_exception_with(block)
-		
-		if fmod(block.height / -16, 1) != 0 and (block.height - z) / 16 > -1:
-			add_collision_exception_with(block)
 	
 	#Check if we're inside the block's collision
-	if multiple_instance_place("Blocks"):
-		var blocks = multiple_instance_place("Blocks")
-		#If we're higher than the block, send the shadow to the top of that block
-		if blocks[0].z >= z:
+	if instance_place("Blocks"):
+		var blocks = instance_place("Blocks")
+		blocks.sort_custom(func (a, b): return a.z > b.z)
+		
+		#If we're higher or lower than any block, send the shadow to the top of that block or the floor
+		if blocks.size() > 1:
+			for i in range(0, blocks.size()):
+				if blocks[i].height+blocks[i].z >= z:
+					zfloor = blocks[i].height+blocks[i].z;
+					z_index = 1
+		elif blocks[0].z >= z:
 			zfloor = blocks[0].height+blocks[0].z;
 			z_index = 1
-		
-		#If we're below the block, send the player to the ground
-		if blocks[0].z < z:
-			if blocks.size() > 1:
-				if blocks[1].z >= z:
-					zfloor = blocks[1].height+blocks[1].z
-			else:
-				zfloor = 0
-			z_index = 1
-		
-	elif instance_place("Slopes"):
-	# For slopes is a bit different
-		for i in $Area2D.get_overlapping_bodies(): 
-			if i.is_in_group("Slopes"):
-				var slope = i
-				var goUp : bool # Says if we should or not go up the slope
-				var stoped : bool # Says if we are not moving
-				
-				# When we're on a slope, we need to identify what direction the slope is facing and the direction of the player
-				if slope.z >= z:
-					if slope.rotate == 1: # if slope is facing left..
-						z_index = 1
-						if direction.x == -1:  # ...and player is also going left
-							# We don't go up the slope
-							goUp = false
-						elif direction.x == 1: # player is going right
-							goUp = true
-							# If the player is going on the right direction it goes up
-							# Otherwise, It doesn't
-						elif direction.y != 0:
-							stoped = true
-					
-					if slope.rotate == 2: # slope is facing right
-						z_index = 1
-						if direction.x == -1:  # player is going left
-							goUp = true
-						elif direction.x == 1: # player is going right
-							goUp = false
-						elif direction.y != 0:
-							stoped = true
-					
-					if slope.rotate == 3: # slope is facing up
-						if direction.y == -1:  # player is going up
-							goUp = false
-						elif direction.y == 1: # player is going down
-							goUp = true
-						elif direction.x != 0:
-							stoped = true
-					
-					if slope.rotate == 4: # slope is facing down
-						z_index = 1
-						if direction.y == -1:  # player is going up
-							goUp = true
-						elif direction.y == 1: # player is going down
-							goUp = false
-						elif direction.x != 0:
-							stoped = true
-					
-					if direction == Vector2.ZERO:
-						stoped = true
-						# If the player is stoped, It shouldn't go anywhere
-					
-					# Once that's checked, The player will have it's zfloor added or subtracted 
-					# depending on the direction the player is going
-					if goUp == true:
-						# If the player is going on the right direction, it goes up
-						if zfloor > slope.height+slope.z:
-							# The only limit is the slopes height
-							zfloor -= 2
-							if jump == false:
-								z -= 2
-					
-					if goUp == false and stoped == false:
-						# If he's going on the wrong direction... Well, you get it.
-						if zfloor < 0:
-							zfloor += 1.3
-							if jump == false:
-								zspeed = 0
-								z += 1.3
-							
-						# ALSO: jump == false is there so that the player don't go up or down
-						# unecessarily when jumping. We want his z position to change only when he's standing on the slope
-					
-					# If the player is jumping over the slope, it's zfloor is still changed
-					if goUp == false and jump == true:
-						zfloor = slope.height+slope.z
+		else:
+			zfloor = 0
 	else:
 		zfloor = 0;
 	# Change z and zfloor for half blocks
@@ -237,12 +145,16 @@ func _physics_process(delta):
 	var groups = ["Blocks", "Slopes", "Half-Blocks", "Stairs"]
 	for i in groups:
 		if instance_place(i):
-			var block = instance_place(i)
-			#This checks are for making sure we're below the block
-			if block and block.z > z+height+zspeed and zfloor >= block.z:
-				if zspeed <= 0 and z > block.z: #z > block.z ensures this change of zSpeed doesn't occur when we're above a block
-					zspeed = GRAVITY
-	
+			var blocks = instance_place(i)
+			blocks.sort_custom(func (a, b): return a.z > b.z)
+			
+			for j in range(0, blocks.size()):
+				var block = blocks[j] if blocks.size() > 1 else blocks[0]
+				#This checks are for making sure we're below the block
+				if block and block.z > z+height+zspeed and zfloor >= block.z:
+					if zspeed <= 0 and z > block.z: #z > block.z ensures this change of zSpeed doesn't occur when we're above a block
+						zspeed = GRAVITY
+		
 	#Do I really need to explain what this does?
 	move_and_slide()
 	#Yeah? I-... I do?
@@ -250,6 +162,7 @@ func _physics_process(delta):
 	
 	#Change values accordingly
 	z += zspeed
+		
 	$Sprite2D.position.y = z # to get the ilusion of the player jumping
 	$CanvasLayer/Label.text ="FPS: " + str(Engine.get_frames_per_second()) + "\nz: " + str(z) + "\nZfloor: " + str(zfloor) + "\nZspeed: " + str(zspeed) # print vars to the screen
 	$Polygon2D.position.y = zfloor # change the position of the shadow
