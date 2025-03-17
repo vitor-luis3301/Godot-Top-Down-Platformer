@@ -56,3 +56,5 @@ one_shot = true
 [node name="JumpBuffer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]

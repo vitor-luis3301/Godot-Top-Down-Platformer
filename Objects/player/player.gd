@@ -10,7 +10,7 @@ var MAX_JUMP_VELOCITY : float
 var MIN_JUMP_VELOCITY : float
 var GRAVITY = 0.2
 
-var MAX_JUMP_HEIGHT = 2.25 #The highest point of our jump
+var MAX_JUMP_HEIGHT = 1.5 #The highest point of our jump
 var MIN_JUMP_HEIGHT = .25 #The lowest point that our jump can be
 var JUMP_DURATION = 1 #How long is the jump going to be
 
@@ -20,8 +20,10 @@ var height = -18  #The height of the player
 var zfloor : float = 0  #The floor the player will land on
 var jump = false #If we are jumping or not
 
-var zspeed = 0 #Our velocity in the z axis
+var coyoteTimeout := false
+var canCoyote := false
 
+var zspeed = 0 #Our velocity in the z axis
 
 func ray_instance_place(group):
 	var objects_collide = [] #The colliding objects go here.
@@ -55,11 +57,12 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		if coyoteTimer.is_stopped() == false or z >= zfloor:
+		if canCoyote == true or z >= zfloor:
 			#if space is pressed, apply velocity upwards
 			coyoteTimer.stop()
 			zspeed = MAX_JUMP_VELOCITY
 			jump = true
+			canCoyote = false
 		else:
 			jumpBuffer.start()
 	
@@ -77,7 +80,7 @@ func _physics_process(delta):
 		ray.target_position = direction * 16
 	
 	#If we're not on the floor, apply gravity
-	if z < zfloor:
+	if z < zfloor and canCoyote == false:
 		zspeed += GRAVITY
 	
 	#If we're grounded, reset variables
@@ -85,19 +88,21 @@ func _physics_process(delta):
 		z = zfloor
 		zspeed = 0
 		jump = false
+		coyoteTimeout = true
+		canCoyote = true
 		z_index = 0
 	
 	#Coyote time and jump buffering
-	if !z + zspeed >= zfloor and !jump:
-		coyoteTimer.start()
-	
-	if zspeed > 2.5:
-		coyoteTimer.stop()
+	if z < zfloor and !jump:
+		if coyoteTimeout == true:
+			coyoteTimer.start()
+			coyoteTimeout = false
 	
 	if z >= zfloor and !jumpBuffer.is_stopped():
 		jumpBuffer.stop()
 		zspeed = MAX_JUMP_VELOCITY
 		jump = true
+		canCoyote = false
 	
 	#Check if we are above or below the block
 	if ray.is_colliding():
@@ -175,8 +180,8 @@ func _physics_process(delta):
 			$Sprite2D.flip_h = false
 	
 	#Make the camera focus on the player's sprite
-	if !jump and z > -72:
+	if !jump:
 		$Camera2D.position.y = lerp($Camera2D.position.y-2, zfloor, $Camera2D.position_smoothing_speed * delta)
-	
-	if z <= -72:
-		$Camera2D.position.y = lerp($Camera2D.position.y-2, z, $Camera2D.position_smoothing_speed * delta)
+
+func _on_coyote_timer_timeout():
+	canCoyote = false

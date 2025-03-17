@@ -1,48 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://dsm4jw4hsvuub"]
 
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_l8jsu"]
-[ext_resource type="PackedScene" uid="uid://xd3glgotcs1i" path="res://Objects/block/block.tscn" id="3_33kxv"]
+[ext_resource type="PackedScene" uid="uid://c52hd6k137jj2" path="res://Objects/slope/slope.tscn" id="3_pk8cg"]
 [ext_resource type="PackedScene" uid="uid://u6csv0racqmt" path="res://Objects/player/player.tscn" id="4_bj0ar"]
 
 [node name="Node2D" type="Node2D"]
-z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_l8jsu")
 
-[node name="StaticBody2D" parent="." instance=ExtResource("3_33kxv")]
-height = -16.0
-
-[node name="StaticBody2D5" parent="." instance=ExtResource("3_33kxv")]
-position = Vector2(32, 0)
-z = -16
-height = -16.0
-
-[node name="StaticBody2D7" parent="." instance=ExtResource("3_33kxv")]
-position = Vector2(16, 0)
-z = -48
-height = -16.0
-
-[node name="StaticBody2D6" parent="." instance=ExtResource("3_33kxv")]
-position = Vector2(140, 0)
-z = -16
-height = -16.0
-
-[node name="StaticBody2D2" parent="." instance=ExtResource("3_33kxv")]
-z = -48
-height = -16.0
-
-[node name="StaticBody2D3" parent="." instance=ExtResource("3_33kxv")]
-z = -96
-height = -16.0
-
-[node name="StaticBody2D8" parent="." instance=ExtResource("3_33kxv")]
-position = Vector2(-16, 0)
-z = -96
-height = -16.0
-
-[node name="StaticBody2D4" parent="." instance=ExtResource("3_33kxv")]
-z = -144
-height = -16.0
-
 [node name="CharacterBody2D" parent="." instance=ExtResource("4_bj0ar")]
-position = Vector2(98, -1)
+
+[node name="StaticBody2D" parent="." groups=["Blocks"] instance=ExtResource("3_pk8cg")]
+position = Vector2(38, 0)
+height = -16
+rotate = 1
