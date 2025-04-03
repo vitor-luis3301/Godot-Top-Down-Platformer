@@ -80,7 +80,6 @@ func _physics_process(delta):
 		jump = true
 		canCoyote = false
 	
-	#physics()
 	#Do I really need to explain what this does?
 	move_and_slide()
 	#Yeah? I-... I do?
