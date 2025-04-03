@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://u6csv0racqmt"]
+[gd_scene load_steps=6 format=3 uid="uid://u6csv0racqmt"]
 
 [ext_resource type="Script" path="res://Objects/player/player.gd" id="1_7h68a"]
 [ext_resource type="Texture2D" uid="uid://ys1q3pf3llp2" path="res://Assets/player.png" id="2_6i7rg"]
+[ext_resource type="Script" path="res://Objects/player/zaxis.gd" id="3_3wuos"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8cfqg"]
 size = Vector2(8, 3)
@@ -38,6 +39,7 @@ shape = SubResource("RectangleShape2D_8cfqg")
 target_position = Vector2(0, 0)
 
 [node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("3_3wuos")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -1.5)
