@@ -9,10 +9,6 @@ size = Vector2(16, 16)
 [node name="StaticBody2D" type="StaticBody2D" groups=["Blocks"]]
 script = ExtResource("1_pb8s2")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0, 0, 0, 0.376471)
-polygon = PackedVector2Array(-8, 0, -8, -16, 8, -16, 8, 0)
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_d08up")
 offset = Vector2(0, -16)

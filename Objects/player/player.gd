@@ -19,11 +19,15 @@ var z = 0  #our z position
 var height = -18  #The height of the player
 var zfloor : float = 0  #The floor the player will land on
 var jump = false #If we are jumping or not
+var jump_count = 3
 
 var coyoteTimeout := false
 var canCoyote := false
 
 var zspeed = 0 #Our velocity in the z axis
+
+### Fake Z-Axis ###
+#region
 
 func ray_instance_place(group):
 	var objects_collide = [] #The colliding objects go here.
@@ -51,59 +55,7 @@ func instance_place(group):
 	else:
 		return null
 
-func _ready():
-	MAX_JUMP_VELOCITY = -sqrt(2 * (2 * MAX_JUMP_HEIGHT / pow(JUMP_DURATION, 2)) * MAX_JUMP_HEIGHT)
-	MIN_JUMP_VELOCITY = -sqrt(2 * (2 * MAX_JUMP_HEIGHT / pow(JUMP_DURATION, 2)) * MIN_JUMP_HEIGHT)
-
-func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		if canCoyote == true or z >= zfloor:
-			#if space is pressed, apply velocity upwards
-			coyoteTimer.stop()
-			zspeed = MAX_JUMP_VELOCITY
-			jump = true
-			canCoyote = false
-		else:
-			jumpBuffer.start()
-	
-	if event.is_action_released("ui_accept") and zspeed <= MIN_JUMP_VELOCITY:
-		#if space is released before jump is completed, interupt jumping
-		zspeed = MIN_JUMP_VELOCITY
-
-func _physics_process(delta):
-	# Get the input direction
-	var direction = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-	velocity = direction * SPEED
-	
-	#handle the direction of the raycast
-	if direction != Vector2.ZERO:
-		ray.target_position = direction * 16
-	
-	#If we're not on the floor, apply gravity
-	if z < zfloor and canCoyote == false:
-		zspeed += GRAVITY
-	
-	#If we're grounded, reset variables
-	if z + zspeed >= zfloor:
-		z = zfloor
-		zspeed = 0
-		jump = false
-		coyoteTimeout = true
-		canCoyote = true
-		z_index = 0
-	
-	#Coyote time and jump buffering
-	if z < zfloor and !jump:
-		if coyoteTimeout == true:
-			coyoteTimer.start()
-			coyoteTimeout = false
-	
-	if z >= zfloor and !jumpBuffer.is_stopped():
-		jumpBuffer.stop()
-		zspeed = MAX_JUMP_VELOCITY
-		jump = true
-		canCoyote = false
-	
+func physics():
 	#Check if we are above or below the block
 	if ray.is_colliding():
 		var blocks = ray_instance_place("Blocks")
@@ -130,10 +82,8 @@ func _physics_process(delta):
 			for i in range(0, blocks.size()):
 				if blocks[i].height+blocks[i].z >= z:
 					zfloor = blocks[i].height+blocks[i].z;
-					z_index = 1
 		elif blocks[0].z >= z:
 			zfloor = blocks[0].height+blocks[0].z;
-			z_index = 1
 		else:
 			zfloor = 0
 	else:
@@ -159,7 +109,63 @@ func _physics_process(delta):
 				if block and block.z > z+height+zspeed and zfloor >= block.z:
 					if zspeed <= 0 and z > block.z: #z > block.z ensures this change of zSpeed doesn't occur when we're above a block
 						zspeed = GRAVITY
-		
+#endregion
+
+func _ready():
+	MAX_JUMP_VELOCITY = -sqrt(2 * (2 * MAX_JUMP_HEIGHT / pow(JUMP_DURATION, 2)) * MAX_JUMP_HEIGHT)
+	MIN_JUMP_VELOCITY = -sqrt(2 * (2 * MAX_JUMP_HEIGHT / pow(JUMP_DURATION, 2)) * MIN_JUMP_HEIGHT)
+
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		if canCoyote == true or jump_count > 0:
+			#if space is pressed, apply velocity upwards
+			coyoteTimer.stop()
+			zspeed = MAX_JUMP_VELOCITY
+			jump = true
+			jump_count -= 1
+			canCoyote = false
+		else:
+			jumpBuffer.start()
+	
+	if event.is_action_released("ui_accept") and zspeed <= MIN_JUMP_VELOCITY:
+		#if space is released before jump is completed, interupt jumping
+		zspeed = MIN_JUMP_VELOCITY
+
+func _physics_process(delta):
+	# Get the input direction
+	var direction = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+	velocity = direction * SPEED
+	
+	#handle the direction of the raycast
+	if direction != Vector2.ZERO:
+		ray.target_position = direction * 16
+	
+	#If we're not on the floor, apply gravity
+	if z < zfloor and canCoyote == false:
+		zspeed += GRAVITY
+	
+	#If we're grounded, reset variables
+	if z + zspeed >= zfloor:
+		z = zfloor
+		zspeed = 0
+		jump = false
+		jump_count = 3
+		coyoteTimeout = true
+		canCoyote = true
+	
+	#Coyote time and jump buffering
+	if z < zfloor and !jump:
+		if coyoteTimeout == true:
+			coyoteTimer.start()
+			coyoteTimeout = false
+	
+	if z >= zfloor and !jumpBuffer.is_stopped():
+		jumpBuffer.stop()
+		zspeed = MAX_JUMP_VELOCITY
+		jump = true
+		canCoyote = false
+	
+	physics()
 	#Do I really need to explain what this does?
 	move_and_slide()
 	#Yeah? I-... I do?
@@ -167,6 +173,7 @@ func _physics_process(delta):
 	
 	#Change values accordingly
 	z += zspeed
+	$Sprite2D.z_index = -z/16
 		
 	$Sprite2D.position.y = z # to get the ilusion of the player jumping
 	$CanvasLayer/Label.text ="FPS: " + str(Engine.get_frames_per_second()) + "\nz: " + str(z) + "\nZfloor: " + str(zfloor) + "\nZspeed: " + str(zspeed) # print vars to the screen

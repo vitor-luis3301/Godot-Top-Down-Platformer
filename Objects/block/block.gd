@@ -5,3 +5,4 @@ extends StaticBody2D
 
 func _ready():
 	$Sprite2D.position.y = z
+	$Sprite2D.z_index = -z/16
